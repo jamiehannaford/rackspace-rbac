@@ -110,15 +110,17 @@ class Runner
             }
         }
 
+        printf("\n\nAdding roles\n\n");
+
         foreach ($users as $userId) {
             foreach ($opts['roles'] as $roleId) {
                 $response = $this->client->put(sprintf('users/%s/roles/OS-KSADM/%s', $userId, $roleId), ['future' => true]);
                 $response->then(
                     function() use ($userId, $roleId, &$complete) {
-                        printf("Added %s to %s\n", $roleId, $userId);
+                        printf("Added role %s to %s\n", $roleId, $userId);
                     },
                     function($error) use ($userId, $roleId, &$complete) {
-                        printf("Failed adding %s to %s: %s\n", $roleId, $userId, $error->getMessage());
+                        printf("Failed adding role %s to %s: %s\n", $roleId, $userId, $error->getMessage());
                     }
                 );
             }
@@ -147,10 +149,10 @@ class Runner
                 $response = $this->client->delete(sprintf('users/%s', $user['id']), ['future' => true]);
                 $response->then(
                     function () use ($username) {
-                        printf("Successfully deleted %s\n", $username);
+                        printf("Successfully deleted user %s\n", $username);
                     },
                     function ($error) use ($username) {
-                        printf("Failed to delete %s: %s\n", $username, $error->getMessage());
+                        printf("Failed to delete user %s: %s\n", $username, $error->getMessage());
                     }
                 );
             }
