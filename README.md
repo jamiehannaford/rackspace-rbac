@@ -15,7 +15,8 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 Then you will need to install this repo:
 
 ```bash
-git clone https://github.com/jamiehannaford/rackspace-rbac && composer install
+git clone https://github.com/jamiehannaford/rackspace-rbac 
+cd rackspace-rbac && composer install
 ```
 
 # Setup
