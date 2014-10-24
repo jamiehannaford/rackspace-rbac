@@ -56,9 +56,9 @@ class Runner
         );
     }
 
-    private function getUserJson($username)
+    private function getUserJson($username, $password)
     {
-        return sprintf('{"user":{"username":"%s","enabled":true}}', $username);
+        return sprintf('{"user":{"username":"%s","OS-KSADM:password":"%s","enabled":true}}', $username, $password);
     }
 
     private function authenticate()
@@ -101,12 +101,14 @@ class Runner
 
         for ($i = 1; $i <= $opts['total']; $i++) {
             $username = (!empty($opts['prefix']) ? $opts['prefix'] : 'user') . '_' . $i;
-            $response = $this->client->post('users', ['body' => $this->getUserJson($username)]);
+            $password = $this->makePassword($username);
+
+            $response = $this->client->post('users', ['body' => $this->getUserJson($username, $password)]);
             $json = $response->json();
 
             if ($response->getStatusCode() == 201 && !empty($json['user']['id'])) {
                 $users[] = $json['user']['id'];
-                printf("username=%s password=%s\n", $username, $this->makePassword($username));
+                printf("username=%s password=%s\n", $username, $password);
             }
         }
 
