@@ -2,7 +2,7 @@
 
 Included are a bunch of scripts that will allow you to quickly and easily provision API users with temporary roles. 
 This is useful when you're hosting a hackathon or user group and need to give folks temporary access to Rackspace 
-APIs. Scripts have been written common tasks - and are available to use in `./scripts`.
+APIs.
 
 # Installation
 
