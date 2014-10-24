@@ -9,7 +9,7 @@ class Runner
     private $client;
     private $config;
 
-    public function __construct(array $config, Client $client = null)
+    public function __construct(array $config)
     {
         $this->validateKey($config, 'username');
         $this->validateKey($config, 'authUrl');
@@ -18,7 +18,7 @@ class Runner
             throw new InvalidArgumentException('A valid apiKey or password is required, none provided');
         }
 
-        $this->client = $client ?: new Client([
+        $this->client = new Client([
             'base_url' => $config['authUrl'],
             'defaults' => [
                 'headers' => [
